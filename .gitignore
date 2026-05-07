@@ -1,6 +1,19 @@
-  .DS_Store                                                                                                                            
-  ._*                                                                                                                                  
-  .vscode/                                                                                                                             
-  .idea/                                                                                                                               
-  *.swp                                                                                                                                
-  *.log                                                                                                                                
+  .DS_Store
+  ._*
+  .vscode/
+  .idea/
+  *.swp
+  *.log
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Database
+geocities.db
+test_geocities.db
+*.db                                                                                                                                

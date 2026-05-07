@@ -1,277 +1,225 @@
-# B1 Geocities Revival - AI DAI Homepage
+# B1 Geocities - Legacy Software Modernization Showcase
 
-**A nostalgic, chaotic homepage for the AI DAI Facilitator program in classic Geocities style**
+**A personal homepage combining 90s Geocities design aesthetic with modern Python/Flask/SQLite backend**
 
 ## Overview
 
-This is a single-page website that celebrates the aesthetic of 1990s Geocities homepages while promoting the AI DAI (Digital Agents Incubation) Facilitator program. It combines neon colors, blink effects, and retro typography with modern semantic HTML and accessibility standards.
+This project demonstrates **legacy software modernization** - taking the beloved 90s Geocities aesthetic and reimplementing it with modern, maintainable technology. Built using **true Test-Driven Development (TDD)** methodology following the 4D process (DISCOVER → DEFINE → DEVELOP → DELIVER).
 
-**Key Features:**
-- Maximum neon chaos (lime, hot pink, cyan, yellow)
-- Persistent hit counter using localStorage
-- CSS animations (no deprecated HTML tags)
-- Semantic HTML5 structure
-- Keyboard accessible
-- No build dependencies (open directly in browser)
+**Purpose:** DAI Selection Submission - Prototype B1 (Individual Use Case)
 
-## Quick Start
+**Approach:** Specification-driven development with RED-GREEN-REFACTOR TDD cycles
 
-### Option 1: Direct File Open
+## About Me
+
+**Name:** HongZhuang Lim "Z"
+
+**Tagline:** Programmer Saved by Grace
+
+**Scripture:** Ecclesiastes 9:10 (KJV)
+> "Whatsoever thy hand findeth to do, do it with thy might;
+> for there is no work, nor device, nor knowledge, nor wisdom,
+> in the grave, whither thou goest."
+
+**Family:** Married, 2 kids
+
+**Motto:** Less is more
+
+## Features
+
+- **90s Geocities Aesthetic:** Light background, bright neon accents, Comic Sans font
+- **Global Hit Counter:** Persistent visitor count stored in SQLite database
+- **Guestbook:** Sign and view messages from visitors
+- **Under Construction:** Classic 90s web element
+- **WCAG AA Accessibility:** Designed with color contrast and semantic HTML
+- **Full-Stack Architecture:** Python/Flask backend with SQLite database
+
+## Tech Stack
+
+- **Backend:** Python 3.10+, Flask 3.0
+- **Database:** SQLite3
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Testing:** pytest 7.4+
+- **Linting:** Ruff 0.1+
+
+## Installation
+
+### Quick Start
+
 ```bash
-open index.html
-# Or double-click index.html in file browser
+# Clone the repository
+git clone https://github.com/yourusername/b1-geocities.git
+cd b1-geocities
+
+# Run installation (installs dependencies AND runs tests)
+./install.sh
+
+# Start the server
+./run.sh
 ```
 
-### Option 2: Local Server (Optional)
+### Manual Installation
+
 ```bash
-python3 -m http.server 8000
-# Visit: http://localhost:8000
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Initialize database
+python -c "from backend.database import init_db; init_db()"
+
+# Run tests
+pytest tests/
+
+# Start server
+export FLASK_APP=backend.app:create_app
+flask run --port 7878
 ```
 
-**Requirements:** Modern web browser (Chrome 90+, Firefox 88+, Safari 14+)
+## Usage
 
-## What to Expect
+### Quick Start (Automated)
 
-- Neon colors and 90s Geocities aesthetic
-- Animated text and glow effects
-- Hit counter that persists across page loads
-- Information about the AI DAI Facilitator program
-- Konami code easter egg (try: ↑↑↓↓←→←→BA)
+1. Run `./install.sh` to set up the environment (creates venv, installs deps, runs tests)
+2. Run `./run.sh` to start the server (automatically opens browser)
+3. Visit http://localhost:7878 (opens automatically)
+4. Enjoy the 90s nostalgia with modern reliability!
 
-## Technical Stack
+**Note:** The scripts automatically activate `venv/` when they run. You don't need to manually activate the venv for normal usage.
 
-- **HTML:** Semantic HTML5 (nav, main, section, article, footer)
-- **CSS:** CSS3 Grid, Flexbox, animations (blink, glow, rainbow)
-- **JavaScript:** Vanilla ES6+ (hit counter, localStorage, scroll effects)
-- **Fonts:** Google Fonts (Press Start 2P, Comic Sans MS, Courier New)
-- **Storage:** localStorage (client-side persistence)
+### Manual Usage (Interactive)
 
-## File Structure
+If you want to run commands manually (e.g., for development):
+
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Now you can use Python/pip/pytest directly
+python --version
+pip list
+pytest tests/ -v
+
+# Deactivate when done
+deactivate
+```
+
+## API Endpoints
+
+### Hit Counter
+
+**GET /api/hitcounter**
+- Returns: `{"count": <number>}`
+- Description: Get current visitor count
+
+**POST /api/hitcounter**
+- Returns: `{"count": <number>}`
+- Description: Increment visitor count and return new value
+
+### Guestbook (Coming Soon)
+
+**GET /api/guestbook**
+- Returns: `{"entries": [...]}`
+- Description: Get all guestbook entries
+
+**POST /api/guestbook**
+- Body: `{"name": "string", "message": "string"}`
+- Returns: `{"id": <number>}`
+- Description: Add new guestbook entry
+
+## Testing
+
+The project was built using **true TDD methodology**:
+
+- **RED:** Write failing tests first
+- **GREEN:** Write minimal code to pass tests
+- **REFACTOR:** Clean up and improve code quality
+
+### Run Tests
+
+```bash
+# Run all tests
+./test.sh
+
+# Or use pytest directly
+python3 -m pytest tests/ -v
+
+# Run specific test files
+python3 -m pytest tests/test_backend.py -v
+python3 -m pytest tests/test_frontend.py -v
+```
+
+### Test Coverage
+
+- **13 tests total** (all passing)
+- 2 database tests
+- 4 model tests
+- 2 Flask API tests
+- 5 frontend structure tests
+
+## Project Structure
 
 ```
 b1-geocities/
-├── index.html      # Main HTML structure (~320 lines)
-├── style.css       # 90s aesthetic styling (~450 lines)
-├── script.js       # Interactivity logic (~180 lines)
-├── test.sh         # Automated validation checklist
-├── README.md       # This file
-└── LICENSE         # MIT License
+├── backend/
+│   ├── __init__.py
+│   ├── app.py           # Flask application factory
+│   ├── database.py      # SQLite database initialization
+│   └── models.py        # HitCounter and Guestbook models
+├── tests/
+│   ├── test_backend.py  # Backend unit tests
+│   └── test_frontend.py # Frontend structure tests
+├── _archive/            # Previous non-TDD implementation
+├── index.html           # Main page (90s Geocities aesthetic)
+├── requirements.txt     # Python dependencies
+├── install.sh          # Installation script
+├── run.sh              # Server startup script
+├── test.sh             # Test runner script
+├── DEVELOPMENT.md      # Full development journal
+├── DEVELOPMENT_APPROACH.md  # Methodology documentation
+└── README.md           # This file
 ```
 
-## Running Tests
-```bash
-./test.sh
-```
+## Development Approach
 
-This executes automated validation checks covering:
-- HTML/CSS/JavaScript validation
-- Semantic structure verification
-- Accessibility checks (ARIA, keyboard nav, color contrast)
-- Visual inspection checklist
-- Link validation
-- Cross-browser compatibility
+This project follows the **4D Methodology**:
 
-## Features Checklist
+1. **DISCOVER** - Requirements gathering and clarification
+2. **DEFINE** - Architecture design and test strategy planning
+3. **DEVELOP** - TDD implementation (RED-GREEN-REFACTOR)
+4. **DELIVER** - Documentation and final polish
 
-- [x] Single-page HTML (opens in browser, no build step)
-- [x] 90s Geocities aesthetic (neon colors, animations)
-- [x] Hit counter with localStorage persistence
-- [x] Semantic HTML5 structure
-- [x] CSS animations (blink, glow, rainbow)
-- [x] Vanilla JavaScript (no frameworks)
-- [x] Accessibility baseline (WCAG AA)
+See `DEVELOPMENT.md` for the complete development journal with timestamps and decisions.
 
-## AI Collaboration
+See `DEVELOPMENT_APPROACH.md` for methodology details and decision logs.
 
-This project was developed using **Claude Sonnet 4.5** (claude-sonnet-4-5-20250929) following Test-Driven Development (TDD) methodology.
+## TDD Cycles Completed
 
-### Development Methodology
+1. ✅ **Database Layer** (2 tests) - SQLite initialization and connection
+2. ✅ **Models Layer** (4 tests) - HitCounter and Guestbook models
+3. ✅ **Hit Counter API** (2 tests) - Flask endpoints for hit counter
+4. ✅ **Frontend HTML** (5 tests) - 90s aesthetic homepage structure
 
-Each feature followed the RED-GREEN-REFACTOR cycle:
-1. **RED:** Write test checklist in test.sh
-2. **GREEN:** Implement minimum code to pass
-3. **REFACTOR:** Clean up, add accessibility, document
+## Why This Approach?
 
-### AI Contributions (~85% of code)
-- HTML/CSS/JavaScript scaffolding and implementation
-- Content drafting for AI DAI program sections
-- Comprehensive documentation generation
-- Test checklist creation
-- Accessibility implementation
+**Legacy Modernization:** Shows ability to respect classic design while applying modern engineering practices
 
-### Human Contributions (~15% of code)
-- Requirements definition and scope decisions
-- Design aesthetic preferences
-- Content review and validation
-- Testing and bug fixes
+**True TDD:** Tests written BEFORE code, proving specification-driven development
 
-### Development Iterations
+**Simplicity:** "Less is more" - minimal dependencies, clear structure, easy to understand
 
-#### Iteration 1: HTML Structure (RED-GREEN-REFACTOR)
-**AI Role:** Generated semantic HTML5 structure
-
-**Code Generated by AI:**
-- `index.html` base structure
-  - Semantic tags: `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
-  - Proper heading hierarchy (h1 → h2 → h3)
-  - Accessibility attributes (lang, meta viewport)
-  - Content sections: Hero, About, What We Do, Tools, Join Us, Footer
-
-**Human Modifications:**
-- [To be filled: e.g., "Adjusted section order", "Rewrote hero copy", etc.]
-
-**Rationale:**
-Semantic HTML provides better accessibility for screen readers and creates a clear document outline. Modern `<nav>` and `<main>` tags are more descriptive than generic `<div>` elements.
-
----
-
-#### Iteration 2: CSS Styling (RED-GREEN-REFACTOR)
-**AI Role:** Implemented Geocities aesthetic with modern CSS
-
-**Code Generated by AI:**
-- `style.css` (~450 lines)
-  - CSS Grid for layout (mimics 90s tables without `<table>` tags)
-  - Neon color palette (--neon-lime, --neon-pink, --neon-cyan, --neon-yellow)
-  - Animations:
-    - `@keyframes blink` (text blink effect, replacing deprecated `<blink>`)
-    - `@keyframes glow` (pulsing glow effect)
-    - `@keyframes rainbow` (color cycling text)
-  - Google Fonts import (Press Start 2P for headings)
-  - Retro UI elements (dotted borders, drop shadows, gradient backgrounds)
-
-**Human Modifications:**
-- [To be filled: e.g., "Increased neon intensity", "Adjusted animation speed", etc.]
-
-**Rationale:**
-Modern CSS achieves the same visual effects as deprecated HTML tags (`<blink>`, `<marquee>`, `<font>`) while maintaining standards compliance. CSS Grid provides flexible layout without accessibility issues of table-based designs.
-
----
-
-#### Iteration 3: JavaScript Functionality (RED-GREEN-REFACTOR)
-**AI Role:** Implemented hit counter and interactive features
-
-**Code Generated by AI:**
-- `script.js` (~180 lines)
-  - `HitCounter` class
-    - `increment()`: Increments counter on page load
-    - `get()`: Retrieves current count
-    - `store()`: Saves to localStorage
-    - `load()`: Retrieves from localStorage
-  - Event listeners (DOMContentLoaded, scroll events)
-  - Smooth scroll navigation
-
-**Human Modifications:**
-- [To be filled: e.g., "Changed counter storage key", "Added error handling", etc.]
-
-**Rationale:**
-localStorage provides client-side persistence without backend infrastructure. The hit counter is a classic Geocities feature that demonstrates state management. Object-oriented approach (HitCounter class) makes code testable and maintainable.
-
----
-
-#### Iteration 4: Content Population (RED-GREEN-REFACTOR)
-**AI Role:** Drafted content for AI DAI program sections
-
-**Content Written by AI:**
-- Hero section: Attention-grabbing headline with CTA
-- About section: AI DAI program overview
-- What We Do section: Bullet points (Agent architecture, Governance, etc.)
-- Tools section: AI tool badges/links
-- Join Us section: Call-to-action and contact info
-
-**Human Modifications:**
-- [To be filled: e.g., "Corrected program details", "Added official contact email", etc.]
-
-**Rationale:**
-Content was drafted based on context from AGENTS.md and general AI agent knowledge. Human review ensures accuracy of program-specific details and official messaging.
-
----
-
-#### Iteration 5: Final Polish (RED-GREEN-REFACTOR)
-**AI Role:** Accessibility audit and cross-browser fixes
-
-**Improvements Made by AI:**
-- Added ARIA labels to navigation links
-- Ensured color contrast meets WCAG AA (4.5:1 minimum)
-- Added `rel="noopener"` to external links (security best practice)
-- Tested focus indicators for keyboard navigation
-- Added comments explaining non-obvious CSS tricks
-
-**Human Modifications:**
-- [To be filled: e.g., "Increased contrast for pink text", "Added missing alt text", etc.]
-
-**Rationale:**
-Accessibility ensures the site is usable by people with disabilities. Security attributes (`rel="noopener"`) prevent malicious sites from accessing the opener window. Comments help future maintainers understand complex CSS animations.
-
-## Design Decisions
-
-### Why CSS Grid Instead of Tables?
-**Decision:** Use CSS Grid to mimic table layouts
-**Rationale:** Tables are semantically for tabular data, not layout. CSS Grid provides the same visual structure without accessibility issues.
-
-### Why localStorage Instead of Backend?
-**Decision:** Use client-side localStorage for hit counter
-**Rationale:** No backend infrastructure needed, instant persistence, simpler deployment (just static files).
-**Trade-off:** Counter resets if user clears browser data, no global view of total hits.
-
-### Why Vanilla JS Instead of Framework?
-**Decision:** No React, Vue, or other frameworks
-**Rationale:** Per project requirements, must open directly in browser without build step. Vanilla JS is sufficient for simple interactions.
-
-### Why Google Fonts via CDN?
-**Decision:** Link to Google Fonts instead of self-hosting
-**Rationale:** Better performance (widely cached), easier implementation, no CORS issues.
-**Trade-off:** Requires internet connection on first load.
-
-## Accessibility Features
-
-- **Semantic HTML:** nav, main, section, article, footer (not div soup)
-- **Heading Hierarchy:** h1 → h2 → h3 (logical document outline)
-- **Color Contrast:** Neon colors on dark backgrounds meet WCAG AA (4.5:1 minimum)
-- **Keyboard Navigation:** Tab order follows visual order, focus indicators visible
-- **ARIA Labels:** Navigation links have descriptive labels
-- **Alt Text:** All visual elements have text alternatives
-
-## Browser Compatibility
-
-| Browser | Minimum Version | Status |
-|---------|-----------------|--------|
-| Chrome | 90+ | ✅ Tested |
-| Firefox | 88+ | ✅ Tested |
-| Safari | 14+ | ✅ Tested |
-| Edge | 90+ | ✅ Should work (Chromium-based) |
-
-**Requirements:**
-- CSS Grid support (all modern browsers since 2017)
-- ES6+ JavaScript (const, let, arrow functions, classes)
-- localStorage API (universal support)
-
-## Known Limitations
-
-1. **Hit Counter:**
-   - Not globally shared (each browser has own count)
-   - Resets if localStorage cleared
-   - No protection against manipulation (can be edited in DevTools)
-
-2. **Animations:**
-   - May cause discomfort for users with vestibular disorders
-   - No "reduce motion" media query implemented (future enhancement)
-
-3. **Responsiveness:**
-   - Intentionally fixed-width for authentic 90s feel
-   - May not be mobile-optimized (Geocities was desktop-only era)
+**Collaboration Quality:** Focus on working code and good documentation over credentials
 
 ## License
 
-MIT License - See LICENSE file for details
+This project is for DAI selection submission purposes.
 
-## Credits
+## Contact
 
-- **Developer:** B1 AI DAI Facilitator Trainee Applicant
-- **AI Assistant:** Claude Sonnet 4.5 (claude-sonnet-4-5-20250929)
-- **Methodology:** TDD (Test-Driven Development)
-- **Inspiration:** Geocities (RIP 1994-2009), 90s web design nostalgia
-- **Fonts:** Google Fonts (Press Start 2P by CodeMan38)
-
----
-
-*Built with 🎨 nostalgia, ⚡ neon, and 🤖 AI collaboration*
+**HongZhuang Lim "Z"**
+- This project demonstrates human-AI collaboration focused on quality over experience
