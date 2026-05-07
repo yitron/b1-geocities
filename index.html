@@ -101,15 +101,106 @@
             }
         }
 
-        // Load hit counter on page load
-        loadHitCounter();
-
         // Guestbook functionality
+        async function loadGuestbook() {
+            try {
+                const response = await fetch('/api/guestbook');
+                const data = await response.json();
+                displayGuestbookEntries(data.entries);
+            } catch (error) {
+                console.error('Failed to load guestbook:', error);
+            }
+        }
+
+        function displayGuestbookEntries(entries) {
+            const container = document.getElementById('guestbook-entries');
+
+            if (entries.length === 0) {
+                container.innerHTML = '<p style="color: #666; font-style: italic;">No entries yet. Be the first to sign!</p>';
+                return;
+            }
+
+            container.innerHTML = entries.map(entry => `
+                <div style="border: 2px solid #ff00ff; padding: 15px; margin: 10px 0; background: #fff8dc;">
+                    <strong style="color: #ff00ff;">${escapeHtml(entry.name)}</strong>
+                    <span style="color: #666; font-size: 12px;">(${new Date(entry.timestamp).toLocaleString()})</span>
+                    <p style="margin: 10px 0 0 0;">${escapeHtml(entry.message)}</p>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function submitGuestbookEntry(name, message) {
+            try {
+                const response = await fetch('/api/guestbook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, message })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to submit entry');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to submit guestbook entry:', error);
+                throw error;
+            }
+        }
+
+        // Event listeners
         document.getElementById('guestbook-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            // Guestbook submission logic will be added later
-            alert('Guestbook feature coming soon!');
+
+            const nameInput = document.getElementById('guestbook-name');
+            const messageInput = document.getElementById('guestbook-message');
+            const submitButton = e.target.querySelector('button[type="submit"]');
+
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!name || !message) {
+                alert('Please fill in both name and message');
+                return;
+            }
+
+            // Disable button during submission
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            try {
+                await submitGuestbookEntry(name, message);
+
+                // Clear form
+                nameInput.value = '';
+                messageInput.value = '';
+
+                // Reload guestbook
+                await loadGuestbook();
+
+                // Show success message
+                alert('Thanks for signing the guestbook!');
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Sign Guestbook';
+            }
         });
+
+        // Load initial data on page load
+        loadHitCounter();
+        loadGuestbook();
     </script>
 </body>
 </html>

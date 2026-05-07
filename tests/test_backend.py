@@ -237,3 +237,112 @@ class TestFlaskAPI:
         assert data['count'] == 2, "Count should be 2 after second increment"
 
         os.remove(test_db)
+
+    def test_guestbook_api_get_returns_entries(self):
+        """
+        RED: Test that GET /api/guestbook returns all entries
+        Should FAIL - no guestbook API endpoint exists yet
+        """
+        if create_app is None:
+            pytest.skip("Flask app not created yet")
+
+        test_db = 'test_geocities.db'
+        if os.path.exists(test_db):
+            os.remove(test_db)
+
+        init_db(test_db)
+
+        # Add some entries directly to database
+        guestbook = Guestbook(test_db)
+        guestbook.add_entry("Alice", "Hello world!")
+        guestbook.add_entry("Bob", "Great site!")
+
+        app = create_app(test_db)
+        client = app.test_client()
+
+        # GET all entries
+        response = client.get('/api/guestbook')
+        assert response.status_code == 200, "Should return 200 OK"
+        data = response.get_json()
+        assert 'entries' in data, "Response should contain entries"
+        assert len(data['entries']) == 2, "Should have 2 entries"
+        assert data['entries'][0]['name'] == "Alice"
+        assert data['entries'][1]['name'] == "Bob"
+
+        os.remove(test_db)
+
+    def test_guestbook_api_post_creates_entry(self):
+        """
+        RED: Test that POST /api/guestbook creates new entry
+        Should FAIL - no guestbook API endpoint exists yet
+        """
+        if create_app is None:
+            pytest.skip("Flask app not created yet")
+
+        test_db = 'test_geocities.db'
+        if os.path.exists(test_db):
+            os.remove(test_db)
+
+        init_db(test_db)
+        app = create_app(test_db)
+        client = app.test_client()
+
+        # POST new entry
+        response = client.post('/api/guestbook', json={
+            'name': 'Charlie',
+            'message': 'Nice page!'
+        })
+        assert response.status_code == 201, "Should return 201 Created"
+        data = response.get_json()
+        assert 'id' in data, "Response should contain entry id"
+        assert data['id'] > 0, "ID should be positive"
+
+        # Verify entry was created
+        guestbook = Guestbook(test_db)
+        entries = guestbook.get_all()
+        assert len(entries) == 1, "Should have 1 entry"
+        assert entries[0]['name'] == 'Charlie'
+        assert entries[0]['message'] == 'Nice page!'
+
+        os.remove(test_db)
+
+    def test_guestbook_api_post_validates_required_fields(self):
+        """
+        RED: Test that POST /api/guestbook validates required fields
+        Should FAIL - no validation exists yet
+        """
+        if create_app is None:
+            pytest.skip("Flask app not created yet")
+
+        test_db = 'test_geocities.db'
+        if os.path.exists(test_db):
+            os.remove(test_db)
+
+        init_db(test_db)
+        app = create_app(test_db)
+        client = app.test_client()
+
+        # POST without name
+        response = client.post('/api/guestbook', json={
+            'message': 'Hello'
+        })
+        assert response.status_code == 400, "Should return 400 Bad Request"
+        data = response.get_json()
+        assert 'error' in data, "Response should contain error message"
+
+        # POST without message
+        response = client.post('/api/guestbook', json={
+            'name': 'Dave'
+        })
+        assert response.status_code == 400, "Should return 400 Bad Request"
+        data = response.get_json()
+        assert 'error' in data, "Response should contain error message"
+
+        # POST with empty strings
+        response = client.post('/api/guestbook', json={
+            'name': '',
+            'message': ''
+        })
+        assert response.status_code == 400, "Should return 400 Bad Request"
+
+        os.remove(test_db)
