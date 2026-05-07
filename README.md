@@ -1,60 +1,181 @@
 # B1 Geocities - Legacy Software Modernization Showcase
 
-**A personal homepage combining 90s Geocities design aesthetic with modern Python/Flask/SQLite backend**
-
 ## Overview
 
-This project demonstrates **legacy software modernization** - taking the beloved 90s Geocities aesthetic and reimplementing it with modern, maintainable technology. Built using **true Test-Driven Development (TDD)** methodology following the 4D process (DISCOVER → DEFINE → DEVELOP → DELIVER).
+### Problem
 
-**Purpose:** DAI Selection Submission - Prototype B1 (Individual Use Case)
+- **Who is affected?** Developers and organizations seeking to modernize legacy systems while preserving their original design intent and user experience.
 
-**Approach:** Specification-driven development with RED-GREEN-REFACTOR TDD cycles
+- **What is the issue?** Many legacy applications (like 90s Geocities sites) have nostalgic value and unique design aesthetics, but lack modern engineering practices like test-driven development, proper separation of concerns, database persistence, and maintainable code structure.
 
-## About Me
+### Outcome
 
-**Name:** HongZhuang Lim "Z"
+- **What was achieved?** A fully functional personal homepage that combines 90s Geocities aesthetic with modern full-stack architecture, built entirely using Test-Driven Development (TDD) methodology.
 
-**Tagline:** Programmer Saved by Grace
+- **Measurable results:**
+  - 17 automated tests (100% passing)
+  - Full-stack application (HTML/CSS/JS frontend, Python/Flask backend, SQLite database)
+  - 2 functional features (hit counter, guestbook) with persistent storage
+  - Complete development journey documented in 1,400+ lines
+  - Zero production dependencies (vanilla frontend, minimal backend)
 
-**Scripture:** Ecclesiastes 9:10 (KJV)
-> "Whatsoever thy hand findeth to do, do it with thy might;
-> for there is no work, nor device, nor knowledge, nor wisdom,
-> in the grave, whither thou goest."
+---
 
-**Family:** Married, 2 kids
+## Demo
 
-**Motto:** Less is more
+### User Journey
 
-## Features
+1. **Visit the homepage** - 90s aesthetic loads with Comic Sans, bright colors, light background
+2. **Hit counter increments** - Server-side counter increases on each visit, displayed immediately
+3. **Read guestbook** - Existing visitor messages load automatically in reverse chronological order
+4. **Sign guestbook** - Fill in name and message, submit, see entry appear immediately
+5. **Under construction** - Classic 90s "work in progress" section
 
-- **90s Geocities Aesthetic:** Light background, bright neon accents, Comic Sans font
-- **Global Hit Counter:** Persistent visitor count stored in SQLite database
-- **Guestbook:** Sign and view messages from visitors
-- **Under Construction:** Classic 90s web element
-- **WCAG AA Accessibility:** Designed with color contrast and semantic HTML
-- **Full-Stack Architecture:** Python/Flask backend with SQLite database
+### Screenshots
 
-## Tech Stack
+**Homepage (90s Aesthetic):**
+```
+┌─────────────────────────────────────────┐
+│  Welcome to HongZhuang's Homepage!      │
+│  (Comic Sans, bright magenta headings)  │
+├─────────────────────────────────────────┤
+│  About Me                               │
+│  - Name, tagline, scripture, family     │
+├─────────────────────────────────────────┤
+│  Hit Counter: Visitors: 42              │
+│  (Bright green counter text)            │
+├─────────────────────────────────────────┤
+│  Guestbook                              │
+│  [Sign guestbook form]                  │
+│  - Existing entries with timestamps     │
+│  - Magenta borders, beige backgrounds   │
+├─────────────────────────────────────────┤
+│  🚧 Under Construction 🚧               │
+└─────────────────────────────────────────┘
+```
 
-- **Backend:** Python 3.10+, Flask 3.0
-- **Database:** SQLite3
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-- **Testing:** pytest 7.4+
-- **Linting:** Ruff 0.1+
+**Demo Steps:**
+```bash
+# 1. Install and run
+./install.sh
+./run.sh
+# Browser opens automatically to http://localhost:7878
+
+# 2. See hit counter increment
+# Refresh page → counter increases
+
+# 3. Sign guestbook
+# Fill form → Submit → Entry appears immediately
+
+# 4. Verify persistence
+# Stop server, restart → data persists in SQLite
+```
+
+---
+
+## Technology Stack
+
+### Frontend components:
+- **HTML5** - Semantic structure, accessibility features
+- **CSS3** - Inline styles for 90s aesthetic (Comic Sans, bright colors)
+- **JavaScript (ES6+)** - Async/await, fetch API, DOM manipulation
+- **No build tools** - Zero dependencies, vanilla JavaScript
+
+### Backend components:
+- **Python 3.10+** - Core language
+- **Flask 3.0** - Web framework, REST API
+- **SQLite3** - Database (zero-configuration, file-based)
+- **pytest 7.4+** - Testing framework
+- **Ruff 0.1+** - Python linter
+
+---
+
+## Development Approach with AI
+
+### AI Tools and Models
+- **Claude Sonnet 4.5** (claude-sonnet-4-5-20250929) - Primary development agent
+- **Purpose:** Pair programming, TDD implementation, architectural decisions, code review
+
+### AI Agents and Roles
+1. **Development Agent (Claude Sonnet 4.5)**
+   - **Role:** Full-stack developer
+   - **Skills:** Python, Flask, SQLite, JavaScript, HTML/CSS, TDD methodology
+   - **Responsibilities:** Write tests first (RED), implement code (GREEN), refactor (REFACTOR), document journey
+
+2. **Planning Agent (Implicit - 4D Methodology)**
+   - **Role:** Requirements analyst and architect
+   - **Skills:** Requirements gathering, architecture design, test strategy
+   - **Phases:** DISCOVER → DEFINE → DEVELOP → DELIVER
+
+### Key Prompts Used
+
+**Phase 1 - DISCOVER (Requirements):**
+```
+"What tech stack should we use for backend?"
+→ Decision: Python + Flask + SQLite (legacy modernization focus)
+
+"How should we structure tests?"
+→ Decision: Component tests in tests/, aggregated test.sh at root
+
+"What features should we include?"
+→ Decision: Hit counter, guestbook, 90s aesthetic, under construction
+```
+
+**Phase 2 - DEFINE (Architecture):**
+```
+"Design the database schema"
+→ Tables: hit_counter, guestbook with timestamps
+
+"Plan TDD cycles"
+→ Cycles: Database → Models → API → Frontend (test-first approach)
+```
+
+**Phase 3 - DEVELOP (TDD Implementation):**
+```
+"Write tests for database initialization"
+→ RED phase: Tests fail, no code exists
+
+"Implement minimal code to pass tests"
+→ GREEN phase: init_db() and get_db_connection() created
+
+"Review code for quality"
+→ REFACTOR phase: Code clean, no changes needed
+```
+
+**Phase 4 - DELIVER (Documentation):**
+```
+"Create comprehensive README"
+→ User-facing documentation with installation, usage, API docs
+
+"Document development journey"
+→ DEVELOPMENT.md with timestamps, decisions, TDD cycles
+```
+
+### Key Review Points and Decisions
+
+| Review Point | Decision Made | Rationale |
+|-------------|---------------|-----------|
+| **Tests written after code** | Archive old code, rebuild with TRUE TDD | Honest acknowledgment of mistake, rebuild correctly |
+| **Port 5000 conflicts on macOS** | Change to port 7878 | Avoid AirPlay Receiver conflict (macOS Monterey+) |
+| **Global package installation** | Create visible `venv/` directory | Isolate dependencies, reproducible environment |
+| **Flask not serving index.html** | Add root route `@app.route('/')` | Flask needs explicit route for static files |
+| **Guestbook incomplete** | Implement with TDD (Cycle 5 & 6) | Follow original feature list, maintain TDD discipline |
+
+---
 
 ## Installation
 
-### Quick Start
+### Quick Start (Automated)
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/yourusername/b1-geocities.git
 cd b1-geocities
 
-# Run installation (installs dependencies AND runs tests)
+# Install dependencies and run tests
 ./install.sh
 
-# Start the server
+# Start server (opens browser automatically)
 ./run.sh
 ```
 
@@ -81,145 +202,233 @@ export FLASK_APP=backend.app:create_app
 flask run --port 7878
 ```
 
+### Requirements
+
+- Python 3.10 or higher
+- macOS, Linux, or Windows with WSL
+- Modern web browser (Chrome, Firefox, Safari)
+
+---
+
 ## Usage
 
-### Quick Start (Automated)
-
-1. Run `./install.sh` to set up the environment (creates venv, installs deps, runs tests)
-2. Run `./run.sh` to start the server (automatically opens browser)
-3. Visit http://localhost:7878 (opens automatically)
-4. Enjoy the 90s nostalgia with modern reliability!
-
-**Note:** The scripts automatically activate `venv/` when they run. You don't need to manually activate the venv for normal usage.
-
-### Manual Usage (Interactive)
-
-If you want to run commands manually (e.g., for development):
+### Running the Application
 
 ```bash
-# Activate virtual environment
-source venv/bin/activate
+# Start server
+./run.sh
 
-# Now you can use Python/pip/pytest directly
-python --version
-pip list
-pytest tests/ -v
-
-# Deactivate when done
-deactivate
+# Server starts on http://localhost:7878
+# Browser opens automatically after 2 seconds
 ```
 
-## API Endpoints
-
-### Hit Counter
-
-**GET /api/hitcounter**
-- Returns: `{"count": <number>}`
-- Description: Get current visitor count
-
-**POST /api/hitcounter**
-- Returns: `{"count": <number>}`
-- Description: Increment visitor count and return new value
-
-### Guestbook (Coming Soon)
-
-**GET /api/guestbook**
-- Returns: `{"entries": [...]}`
-- Description: Get all guestbook entries
-
-**POST /api/guestbook**
-- Body: `{"name": "string", "message": "string"}`
-- Returns: `{"id": <number>}`
-- Description: Add new guestbook entry
-
-## Testing
-
-The project was built using **true TDD methodology**:
-
-- **RED:** Write failing tests first
-- **GREEN:** Write minimal code to pass tests
-- **REFACTOR:** Clean up and improve code quality
-
-### Run Tests
+### Running Tests
 
 ```bash
 # Run all tests
 ./test.sh
 
-# Or use pytest directly
-python3 -m pytest tests/ -v
+# Run specific test file
+source venv/bin/activate
+pytest tests/test_backend.py -v
+pytest tests/test_frontend.py -v
 
-# Run specific test files
-python3 -m pytest tests/test_backend.py -v
-python3 -m pytest tests/test_frontend.py -v
+# Run with coverage
+pytest tests/ --cov=backend
 ```
 
-### Test Coverage
+### API Endpoints
 
-- **13 tests total** (all passing)
-- 2 database tests
-- 4 model tests
-- 2 Flask API tests
-- 5 frontend structure tests
+**Hit Counter:**
+```bash
+# Get current count
+curl http://localhost:7878/api/hitcounter
+{"count": 42}
+
+# Increment count
+curl -X POST http://localhost:7878/api/hitcounter
+{"count": 43}
+```
+
+**Guestbook:**
+```bash
+# Get all entries
+curl http://localhost:7878/api/guestbook
+{"entries": [...]}
+
+# Add new entry
+curl -X POST http://localhost:7878/api/guestbook \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Alice","message":"Hello!"}'
+{"id": 1}
+```
+
+### Expected Behavior
+
+1. **First visit:** Hit counter shows 1, guestbook is empty
+2. **Sign guestbook:** Form clears, new entry appears at top
+3. **Refresh page:** Hit counter increments, guestbook entries persist
+4. **Restart server:** All data persists (stored in `geocities.db`)
+
+---
 
 ## Project Structure
 
 ```
 b1-geocities/
-├── backend/
-│   ├── __init__.py
-│   ├── app.py           # Flask application factory
-│   ├── database.py      # SQLite database initialization
-│   └── models.py        # HitCounter and Guestbook models
-├── tests/
-│   ├── test_backend.py  # Backend unit tests
-│   └── test_frontend.py # Frontend structure tests
-├── _archive/            # Previous non-TDD implementation
-├── index.html           # Main page (90s Geocities aesthetic)
-├── requirements.txt     # Python dependencies
-├── install.sh          # Installation script
-├── run.sh              # Server startup script
-├── test.sh             # Test runner script
-├── DEVELOPMENT.md      # Full development journal
-├── DEVELOPMENT_APPROACH.md  # Methodology documentation
-└── README.md           # This file
+├── backend/                 # Python backend (Flask + SQLite)
+│   ├── __init__.py         # Package initialization
+│   ├── app.py              # Flask application factory, API routes
+│   ├── database.py         # Database initialization and connection
+│   └── models.py           # HitCounter and Guestbook models
+│
+├── tests/                   # Automated tests (pytest)
+│   ├── test_backend.py     # Backend tests (database, models, API)
+│   └── test_frontend.py    # Frontend tests (HTML structure)
+│
+├── _archive/                # Archived non-TDD implementation
+│   └── 2026-05-07-non-tdd/ # Original code (preserved for reference)
+│
+├── docs/                    # Documentation
+│   └── DEVELOPMENT_APPROACH.md  # Methodology and decision log
+│
+├── index.html               # Main page (90s Geocities aesthetic)
+├── requirements.txt         # Python dependencies
+├── install.sh              # Installation script (creates venv, runs tests)
+├── run.sh                  # Server startup script (auto-opens browser)
+├── test.sh                 # Test runner script
+├── .gitignore              # Git ignore patterns
+├── DEVELOPMENT.md          # Complete development journal (1,400+ lines)
+└── README.md               # This file
 ```
 
-## Development Approach
+### Key Folders
 
-This project follows the **4D Methodology**:
+- **`backend/`** - Server-side code following MVC pattern (models, controllers/routes)
+- **`tests/`** - Test-Driven Development tests (written BEFORE implementation)
+- **`_archive/`** - Preserved history showing honest development journey
+- **`docs/`** - Additional documentation (methodology, decisions)
 
-1. **DISCOVER** - Requirements gathering and clarification
-2. **DEFINE** - Architecture design and test strategy planning
-3. **DEVELOP** - TDD implementation (RED-GREEN-REFACTOR)
-4. **DELIVER** - Documentation and final polish
+---
 
-See `DEVELOPMENT.md` for the complete development journal with timestamps and decisions.
+## Reflection
 
-See `DEVELOPMENT_APPROACH.md` for methodology details and decision logs.
+### Development Journey
 
-## TDD Cycles Completed
+The complete development journey is documented in **[DEVELOPMENT.md](DEVELOPMENT.md)** with timestamps, decisions, and rationale for every change. Below are high-level summaries linking to detailed entries:
 
-1. ✅ **Database Layer** (2 tests) - SQLite initialization and connection
-2. ✅ **Models Layer** (4 tests) - HitCounter and Guestbook models
-3. ✅ **Hit Counter API** (2 tests) - Flask endpoints for hit counter
-4. ✅ **Frontend HTML** (5 tests) - 90s aesthetic homepage structure
+**Phase 1: DISCOVER (Requirements Gathering)**
+- [2026-05-07 16:00 - Initial Requirements](DEVELOPMENT.md#2026-05-07-1600---phase-1-discover-requirements-gathering)
+  - Clarified legacy modernization goal (90s design + modern stack)
+  - Defined tech stack (Python/Flask/SQLite)
+  - Established 5 core features (hit counter, guestbook, aesthetic, navigation, under construction)
 
-## Why This Approach?
+**Phase 2: DEFINE (Architecture Planning)**
+- [2026-05-07 16:20 - Architecture Design](DEVELOPMENT.md#2026-05-07-1620---phase-2-define-architecture-planning)
+  - Designed database schema (2 tables: hit_counter, guestbook)
+  - Planned TDD cycles (9 cycles from database to deployment)
+  - Defined test strategy (component tests, aggregated results)
 
-**Legacy Modernization:** Shows ability to respect classic design while applying modern engineering practices
+**Phase 3: DEVELOP (TDD Implementation)**
+- [2026-05-07 16:37 - Honest Rebuild Decision](DEVELOPMENT.md#2026-05-07-1637---phase-3-develop-true-tdd)
+  - **Discovery:** Original implementation was NOT true TDD (tests written after code)
+  - **Decision:** Archive old code, rebuild with TRUE RED-GREEN-REFACTOR
+  - **Rationale:** Honesty and correctness over speed
 
-**True TDD:** Tests written BEFORE code, proving specification-driven development
+- [2026-05-07 16:50 - TDD Cycle 1: Database Layer](DEVELOPMENT.md#tdd-cycle-1-backend-database-layer)
+  - RED: Tests failed (no code existed)
+  - GREEN: Created init_db() and get_db_connection()
+  - REFACTOR: Code reviewed, quality good
+  - Result: 2/2 tests passing
 
-**Simplicity:** "Less is more" - minimal dependencies, clear structure, easy to understand
+- [2026-05-07 16:57 - TDD Cycle 2: Models Layer](DEVELOPMENT.md#tdd-cycle-2-models-layer)
+  - RED: Tests failed (no models existed)
+  - GREEN: Created HitCounter and Guestbook classes
+  - REFACTOR: Code reviewed, quality good
+  - Result: 6/6 tests passing
 
-**Collaboration Quality:** Focus on working code and good documentation over credentials
+- [2026-05-07 17:03 - TDD Cycle 4: Hit Counter API](DEVELOPMENT.md#tdd-cycle-4-hit-counter-api)
+  - RED: Tests skipped (no Flask app existed)
+  - GREEN: Created Flask app factory, GET/POST endpoints
+  - REFACTOR: Code reviewed, factory pattern good
+  - Result: 8/8 tests passing
 
-## License
+- [2026-05-07 17:05 - TDD Cycle 6: Frontend HTML](DEVELOPMENT.md#tdd-cycle-6-frontend-html)
+  - RED: Tests failed (no index.html existed)
+  - GREEN: Created HTML with 90s aesthetic, personal content
+  - REFACTOR: Code reviewed, structure good
+  - Result: 13/13 tests passing
 
-This project is for DAI selection submission purposes.
+- [2026-05-07 17:30 - Root Route Fix](DEVELOPMENT.md#2026-05-07-1730---root-route-implementation)
+  - **Issue:** curl localhost:7878 returned 404
+  - **Fix:** Added @app.route('/') to serve index.html
+  - **Result:** Homepage now loads correctly
 
-## Contact
+- [2026-05-07 17:53 - TDD Cycle 5: Guestbook API](DEVELOPMENT.md#2026-05-07-1753---tdd-cycle-5-guestbook-api)
+  - RED: Tests failed (endpoints didn't exist)
+  - GREEN: Implemented GET/POST /api/guestbook with validation
+  - REFACTOR: Code reviewed, RESTful design good
+  - Result: 17/17 tests passing
 
-**HongZhuang Lim "Z"**
-- This project demonstrates human-AI collaboration focused on quality over experience
+- [2026-05-07 17:59 - TDD Cycle 6: Guestbook Frontend](DEVELOPMENT.md#2026-05-07-1759---tdd-cycle-6-guestbook-frontend-javascript)
+  - Implemented loadGuestbook(), submitGuestbookEntry()
+  - Added XSS protection (escapeHtml)
+  - Wired up form to API with error handling
+  - Result: Full guestbook functionality working
+
+**Phase 4: DELIVER (Documentation & Polish)**
+- [2026-05-07 17:12 - README Creation](DEVELOPMENT.md#readme-md-created)
+  - Created comprehensive user-facing documentation
+  - Documented installation, usage, API endpoints
+  - Added project structure explanation
+
+**Post-Delivery Improvements**
+- [2026-05-07 17:18 - Browser Auto-Open](DEVELOPMENT.md#2026-05-07-1718---post-delivery-improvements)
+  - Updated run.sh to open browser automatically
+  - Enhanced user experience (no manual URL entry)
+
+- [2026-05-07 17:19 - Port Change (5000 → 7878)](DEVELOPMENT.md#port-change-5000--7878)
+  - Fixed macOS AirPlay Receiver conflict
+  - Changed default port to 7878
+
+- [2026-05-07 17:22 - Virtual Environment Implementation](DEVELOPMENT.md#virtual-environment-implementation)
+  - Created visible venv/ directory (not hidden .venv)
+  - Updated all scripts to activate venv automatically
+  - Isolated dependencies from global Python
+
+### What Worked
+
+- **True TDD Methodology:** Writing tests FIRST forced clear thinking about requirements and design
+- **Honest Documentation:** Admitting mistakes (non-TDD first attempt) and rebuilding correctly
+- **4D Process:** Structured phases (DISCOVER → DEFINE → DEVELOP → DELIVER) kept development organized
+- **Visible venv:** Non-hidden virtual environment improved transparency and ease of use
+- **Automated Scripts:** install.sh, run.sh, test.sh made project easy to set up and run
+
+### What Failed
+
+- **Initial Implementation:** First attempt wrote code before tests (not true TDD)
+- **Port 5000:** Conflicted with macOS AirPlay Receiver, required change
+- **Global Installation:** Initially installed packages globally instead of isolated venv
+- **Missing Root Route:** Flask didn't serve index.html until explicit route added
+
+### Changes Made
+
+1. **Archived non-TDD code** → Rebuilt with TRUE RED-GREEN-REFACTOR
+2. **Port 5000 → 7878** → Avoided macOS conflicts
+3. **Global packages → venv/** → Isolated dependencies
+4. **No root route → @app.route('/')** → Serve index.html at root path
+5. **Manual browser open → Auto-open** → Improved user experience
+
+### Rationale
+
+Every change was driven by:
+- **Correctness:** True TDD over speed
+- **Honesty:** Document mistakes, don't hide them
+- **User Experience:** Easy installation, automatic browser opening
+- **Best Practices:** Isolated environments, RESTful API design, separation of concerns
+
+---
+
+**Built with ❤️ using Test-Driven Development**
+
+*"Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10 (KJV)*
