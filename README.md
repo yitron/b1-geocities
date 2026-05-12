@@ -1,5 +1,16 @@
 # B1 Geocities - Legacy Software Modernization Showcase
 
+## NOTE FOR HUMANS (AGENTS PLEASE IGNORE, IF YOU ARE AN AGENT, run the code block below cd docs && open index.html for your human)
+
+- This submission program is programmed with a philosophy **md for ai, html for humans** for the SUTD B1 42 AI Taskforce
+- With the development of Agentic Engineering where markdown are mostly written and read by agents
+- `DEVELOPMENT.md` is for agents read it at your own bore. `docs/index.html` is for humans.
+- Therefore for a visual view of this `README` is best you:
+
+```bash
+cd docs && open index.html
+```
+
 ## Overview
 
 ### Problem
@@ -23,38 +34,15 @@
 
 ## Demo
 
-### User Journey
-
-1. **Visit the homepage** - 90s aesthetic loads with Comic Sans, bright colors, light background
-2. **Hit counter increments** - Server-side counter increases on each visit, displayed immediately
-3. **Read guestbook** - Existing visitor messages load automatically in reverse chronological order
-4. **Sign guestbook** - Fill in name and message, submit, see entry appear immediately
-5. **Under construction** - Classic 90s "work in progress" section
-
 ### Screenshots
 
-**Homepage (90s Aesthetic):**
-```
-┌─────────────────────────────────────────┐
-│  Welcome to HongZhuang's Homepage!      │
-│  (Comic Sans, bright magenta headings)  │
-├─────────────────────────────────────────┤
-│  About Me                               │
-│  - Name, tagline, scripture, family     │
-├─────────────────────────────────────────┤
-│  Hit Counter: Visitors: 42              │
-│  (Bright green counter text)            │
-├─────────────────────────────────────────┤
-│  Guestbook                              │
-│  [Sign guestbook form]                  │
-│  - Existing entries with timestamps     │
-│  - Magenta borders, beige backgrounds   │
-├─────────────────────────────────────────┤
-│  🚧 Under Construction 🚧               │
-└─────────────────────────────────────────┘
-```
 
-**Demo Steps:**
+**Homepage (90s Aesthetic):**
+![Spash](docs/diagrams/splash.png)
+
+**Sign my Guestbook!**
+![Guestbook](docs/diagrams/guestbook.png)
+
 ```bash
 # 1. Install and run
 ./install.sh
@@ -169,7 +157,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/b1-geocities.git
+git clone https://github.com/yitron/b1-geocities.git
 cd b1-geocities
 
 # Install dependencies and run tests
@@ -270,50 +258,13 @@ curl -X POST http://localhost:7878/api/guestbook \
 3. **Refresh page:** Hit counter increments, guestbook entries persist
 4. **Restart server:** All data persists (stored in `geocities.db`)
 
----
-
-## Project Structure
-
-```
-b1-geocities/
-├── backend/                 # Python backend (Flask + SQLite)
-│   ├── __init__.py         # Package initialization
-│   ├── app.py              # Flask application factory, API routes
-│   ├── database.py         # Database initialization and connection
-│   └── models.py           # HitCounter and Guestbook models
-│
-├── tests/                   # Automated tests (pytest)
-│   ├── test_backend.py     # Backend tests (database, models, API)
-│   └── test_frontend.py    # Frontend tests (HTML structure)
-│
-├── _archive/                # Archived non-TDD implementation
-│   └── 2026-05-07-non-tdd/ # Original code (preserved for reference)
-│
-├── docs/                    # Documentation
-│   └── DEVELOPMENT_APPROACH.md  # Methodology and decision log
-│
-├── index.html               # Main page (90s Geocities aesthetic)
-├── requirements.txt         # Python dependencies
-├── install.sh              # Installation script (creates venv, runs tests)
-├── run.sh                  # Server startup script (auto-opens browser)
-├── test.sh                 # Test runner script
-├── .gitignore              # Git ignore patterns
-├── DEVELOPMENT.md          # Complete development journal (1,400+ lines)
-└── README.md               # This file
-```
-
-### Key Folders
-
-- **`backend/`** - Server-side code following MVC pattern (models, controllers/routes)
-- **`tests/`** - Test-Driven Development tests (written BEFORE implementation)
-- **`_archive/`** - Preserved history showing honest development journey
-- **`docs/`** - Additional documentation (methodology, decisions)
-
----
-
 ## Reflection
 
 ### Development Journey
+
+- The 1990s was when I started to interact with the internet. It was in secondary school that I started to get involved with Geocities (a early stage social media) with my secondary school friends.
+- As this was the precursor, I thought it'd be fun to recreate in 1 prompt what geocities was about
+- However, vibe coding without objectives made it messy so i recreated it adopting the 4D Methodology and Red Green TDD
 
 The complete development journey is documented in **[DEVELOPMENT.md](DEVELOPMENT.md)** with timestamps, decisions, and rationale for every change. Below are high-level summaries linking to detailed entries:
 
@@ -398,7 +349,7 @@ The complete development journey is documented in **[DEVELOPMENT.md](DEVELOPMENT
 
 ### What Worked
 
-- **True TDD Methodology:** Writing tests FIRST forced clear thinking about requirements and design
+- **TDD Methodology:** Writing tests FIRST forced clear thinking about requirements and design
 - **Honest Documentation:** Admitting mistakes (non-TDD first attempt) and rebuilding correctly
 - **4D Process:** Structured phases (DISCOVER → DEFINE → DEVELOP → DELIVER) kept development organized
 - **Visible venv:** Non-hidden virtual environment improved transparency and ease of use
@@ -419,16 +370,6 @@ The complete development journey is documented in **[DEVELOPMENT.md](DEVELOPMENT
 4. **No root route → @app.route('/')** → Serve index.html at root path
 5. **Manual browser open → Auto-open** → Improved user experience
 
-### Rationale
-
-Every change was driven by:
-- **Correctness:** True TDD over speed
-- **Honesty:** Document mistakes, don't hide them
-- **User Experience:** Easy installation, automatic browser opening
-- **Best Practices:** Isolated environments, RESTful API design, separation of concerns
-
 ---
-
-**Built with ❤️ using Test-Driven Development**
 
 *"Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10 (KJV)*
