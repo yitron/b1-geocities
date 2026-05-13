@@ -8,7 +8,7 @@
 - Therefore for a visual view of this `README` is best you:
 
 ```bash
-cd docs && open index.html
+open docs/open index.html
 ```
 
 ## Overview
