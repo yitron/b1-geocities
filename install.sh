@@ -14,8 +14,24 @@ echo
 # Create virtual environment
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
-    python3 -m venv venv
-    echo "✅ Virtual environment created"
+
+    # Check if venv module is available
+    if python3 -m venv --help &> /dev/null; then
+        # Use built-in venv
+        python3 -m venv venv
+        echo "✅ Virtual environment created"
+    else
+        # venv not available, try virtualenv
+        echo "⚠️  Python venv module not found, checking for virtualenv..."
+
+        if ! python3 -m virtualenv --help &> /dev/null; then
+            echo "Installing virtualenv package..."
+            python3 -m pip install --user virtualenv
+        fi
+
+        python3 -m virtualenv venv
+        echo "✅ Virtual environment created using virtualenv"
+    fi
 else
     echo "✅ Virtual environment already exists"
 fi
