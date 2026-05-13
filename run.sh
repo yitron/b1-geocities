@@ -12,13 +12,24 @@ if [ ! -d "venv" ]; then
     exit 1
 fi
 
-# Activate virtual environment
-source venv/bin/activate
+# Detect platform and set Python path
+if [ -f "venv/bin/python" ]; then
+    # Linux/macOS
+    PYTHON="venv/bin/python"
+    FLASK="venv/bin/flask"
+elif [ -f "venv/Scripts/python.exe" ]; then
+    # Windows (Git Bash/MSYS)
+    PYTHON="venv/Scripts/python.exe"
+    FLASK="venv/Scripts/flask.exe"
+else
+    echo "❌ Could not find Python in virtual environment"
+    exit 1
+fi
 
 # Check if database exists
 if [ ! -f "geocities.db" ]; then
     echo "Database not found. Initializing..."
-    python -c "from backend.database import init_db; init_db()"
+    $PYTHON -c "from backend.database import init_db; init_db()"
     echo "✅ Database initialized"
 fi
 
@@ -31,8 +42,21 @@ echo
 export FLASK_APP=backend.app:create_app
 export FLASK_ENV=development
 
+# Detect browser opener command
+if command -v open &> /dev/null; then
+    BROWSER_CMD="open"  # macOS
+elif command -v xdg-open &> /dev/null; then
+    BROWSER_CMD="xdg-open"  # Linux
+elif command -v start &> /dev/null; then
+    BROWSER_CMD="start"  # Windows
+else
+    BROWSER_CMD=""
+fi
+
 # Open browser after Flask starts (run in background)
-(sleep 2 && open http://localhost:7878) &
+if [ -n "$BROWSER_CMD" ]; then
+    (sleep 2 && $BROWSER_CMD http://localhost:7878) &
+fi
 
 # Start Flask server (foreground)
-flask run --port 7878
+$FLASK run --port 7878
